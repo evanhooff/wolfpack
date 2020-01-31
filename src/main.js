@@ -19,7 +19,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.get('').catch(err => {
-  console.log(err.request._header)
+  err;
 })
 
 new Vue({
