@@ -5,7 +5,7 @@ import axios from 'axios';
 Vue.config.productionTip = false;
 
 const getBaseUrl = () => {
-  return "https://join.wolfpackit.nl"
+  return process.env.VUE_APP_BASEURL;
 }
 
 axios.defaults.headers.common['Authorization'] = 'Bearer 9bAqXRPplyiGfF6n81NVUGpAqeLI1QHw46aqICVL1BLaGI6';
@@ -18,9 +18,7 @@ const axiosInstance = axios.create({
   timeout: 5000
 });
 
-axiosInstance.get('').catch(err => {
-  err;
-})
+axiosInstance.get('');
 
 new Vue({
   render: h => h(App)
