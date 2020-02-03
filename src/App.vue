@@ -1,17 +1,26 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    Hier: {{ testVariable }}
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "app",
-  components: {
-    HelloWorld
+  computed: {
+    ...mapGetters({
+      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
+      testVariable: "testApiGetter/getTestVariable"
+    })
+  },
+  methods: {
+    ...mapActions("testApiGetter", ["testDefaultApiCall"])
+  },
+  mounted() {
+    this.testDefaultApiCall();
   }
 };
 </script>
