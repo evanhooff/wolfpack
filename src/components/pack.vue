@@ -1,5 +1,5 @@
 <template>
-  <div>{{ selectedPack }}</div>
+  <div>Location: {{ selectedPack.lat }} / {{ selectedPack.lng }}</div>
 </template>
 
 <script>
