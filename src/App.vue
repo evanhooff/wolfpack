@@ -3,6 +3,8 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <!-- <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf"></wolf> -->
     <pack></pack>
+
+    <router-view></router-view>
   </div>
 </template>
 

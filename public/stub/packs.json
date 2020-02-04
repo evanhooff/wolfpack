@@ -1,0 +1,42 @@
+{
+  "id": 24,
+  "name": "AmsterdamPack",
+  "lat": 52.3666969,
+  "lng": 4.8945398,
+  "created_at": "2019-12-24 09:03:58",
+  "updated_at": "2020-01-02 11:22:32",
+  "wolves": [{
+    "id": 250,
+    "name": "Test",
+    "gender": "male",
+    "birthday": "2015-04-03",
+    "created_at": "2019-12-23 18:51:10",
+    "updated_at": "2019-12-23 18:51:10",
+    "pivot": {
+      "pack_id": 24,
+      "wolf_id": 250
+    }
+  }, {
+    "id": 22,
+    "name": "Marilou Bernhard",
+    "gender": "male",
+    "birthday": "1996-09-09",
+    "created_at": "2019-04-01 08:22:48",
+    "updated_at": "2020-01-24 19:28:40",
+    "pivot": {
+      "pack_id": 24,
+      "wolf_id": 22
+    }
+  }, {
+    "id": 283,
+    "name": "Joey",
+    "gender": "male",
+    "birthday": "1989-07-02",
+    "created_at": "2020-01-27 09:24:29",
+    "updated_at": "2020-01-27 09:24:29",
+    "pivot": {
+      "pack_id": 24,
+      "wolf_id": 283
+    }
+  }]
+}
