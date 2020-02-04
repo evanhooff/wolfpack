@@ -1,31 +1,29 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    Hier: {{ testVariable }}
-    <hello-world></hello-world>
+    <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf"></wolf>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import Wolf from "./components/wolf";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "app",
   components: {
-    HelloWorld
+    Wolf
   },
   computed: {
     ...mapGetters({
-      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
-      testVariable: "testApiGetter/getTestVariable"
+      allWolves: "wolves/allWolves"
     })
   },
   methods: {
-    ...mapActions("testApiGetter", ["testDefaultApiCall"])
+    ...mapActions("wolves", ["getAllWolves"])
   },
   mounted() {
-    this.testDefaultApiCall();
+    this.getAllWolves();
   }
 };
 </script>

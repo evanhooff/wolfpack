@@ -3,10 +3,12 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-import testApiGetter from './testApiGetter';
+import wolves from './wolves';
+import packs from './packs';
 
 export default new Vuex.Store({
   modules: {
-    testApiGetter
+    wolves,
+    packs
   }
 });
