@@ -1,13 +1,13 @@
 <template>
-  <div>pack</div>
+  <div>{{ selectedPack }}</div>
 </template>
 
 <script>
 export default {
-  name: "pack"
+  name: "pack",
+  props: ["selectedPack"]
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

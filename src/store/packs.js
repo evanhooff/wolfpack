@@ -6,7 +6,7 @@ const state = {
 }
 
 const getters = {
-  allWolves: state => {
+  allPacks: state => {
     return state.allPacks;
   },
   selectedPack: state => {
