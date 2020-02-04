@@ -1,19 +1,28 @@
 import rest from '../api/rest';
 
 const state = {
-  allPacks: null
+  allPacks: null,
+  selectedPack: null
 }
 
 const getters = {
   allWolves: state => {
     return state.allPacks;
+  },
+  selectedPack: state => {
+    return state.selectedPack;
   }
 }
 
 const actions = {
   getAllPacks: store => {
-    rest.getPacks('/packs').then(packs => {
+    rest.getPacks().then(packs => {
       store.commit('setAllPacks', packs);
+    });
+  },
+  getPack: (store, id) => {
+    rest.getPack(id).then(pack => {
+      store.commit('setSelectedPack', pack);
     });
   }
 }
@@ -21,6 +30,9 @@ const actions = {
 const mutations = {
   setAllPacks(state, packs) {
     state.allPacks = packs;
+  },
+  setSelectedPack(state, pack) {
+    state.selectedPack = pack;
   }
 }
 

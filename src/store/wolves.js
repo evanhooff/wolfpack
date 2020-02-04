@@ -12,7 +12,7 @@ const getters = {
 
 const actions = {
   getAllWolves: store => {
-    rest.getWolves('/wolves').then(wolves => {
+    rest.getWolves().then(wolves => {
       store.commit('setAllWolves', wolves);
     });
   }

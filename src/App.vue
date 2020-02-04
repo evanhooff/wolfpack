@@ -20,16 +20,19 @@ export default {
   computed: {
     ...mapGetters({
       // allWolves: "wolves/allWolves"
-      allPacks: "packs/allPacks"
+      // allPacks: "packs/allPacks"
+      selectedPack: "packs/selectedPack"
     })
   },
   methods: {
     // ...mapActions("wolves", ["getAllWolves"]),
-    ...mapActions("packs", ["getAllPacks"])
+    // ...mapActions("packs", ["getAllPacks"]),
+    ...mapActions("packs", ["getPack"])
   },
   mounted() {
     // this.getAllWolves();
-    this.getAllPacks();
+    // this.getAllPacks();
+    this.getPack(24);
   }
 };
 </script>
