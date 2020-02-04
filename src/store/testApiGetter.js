@@ -12,7 +12,7 @@ const getters = {
 
 const actions = {
   testDefaultApiCall() {
-    rest.getBase();
+    rest.getWolves();
   }
 }
 

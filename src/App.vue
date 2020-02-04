@@ -2,14 +2,19 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     Hier: {{ testVariable }}
+    <hello-world></hello-world>
   </div>
 </template>
 
 <script>
+import HelloWorld from "./components/HelloWorld";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "app",
+  components: {
+    HelloWorld
+  },
   computed: {
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
