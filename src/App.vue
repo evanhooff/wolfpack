@@ -1,29 +1,35 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf"></wolf>
+    <!-- <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf"></wolf> -->
+    <pack></pack>
   </div>
 </template>
 
 <script>
-import Wolf from "./components/wolf";
+// import Wolf from "./components/wolf";
+import Pack from "./components/pack";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "app",
   components: {
-    Wolf
+    // Wolf
+    Pack
   },
   computed: {
     ...mapGetters({
-      allWolves: "wolves/allWolves"
+      // allWolves: "wolves/allWolves"
+      allPacks: "packs/allPacks"
     })
   },
   methods: {
-    ...mapActions("wolves", ["getAllWolves"])
+    // ...mapActions("wolves", ["getAllWolves"]),
+    ...mapActions("packs", ["getAllPacks"])
   },
   mounted() {
-    this.getAllWolves();
+    // this.getAllWolves();
+    this.getAllPacks();
   }
 };
 </script>
