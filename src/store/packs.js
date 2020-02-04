@@ -1,11 +1,15 @@
 import rest from '../api/rest';
 
 const state = {
+  packLoading: true,
   allPacks: null,
   selectedPack: null
 }
 
 const getters = {
+  loading: state => {
+    return state.packLoading;
+  },
   allPacks: state => {
     return state.allPacks;
   },
@@ -22,12 +26,16 @@ const actions = {
   },
   getPack: (store, id) => {
     rest.getPack(id).then(pack => {
+      store.commit('setLoadingState', false);
       store.commit('setSelectedPack', pack);
     });
   }
 }
 
 const mutations = {
+  setLoadingState(state, isLoading) {
+    state.packLoading = isLoading;
+  },
   setAllPacks(state, packs) {
     state.allPacks = packs;
   },
