@@ -1,13 +1,16 @@
 <template>
   <div>
     <h1>All Wolves</h1>
-    <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf"></wolf>
+    <div v-if="!isLoading">
+      <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf"></wolf>
+    </div>
+    <div v-if="isLoading">Loading...</div>
   </div>
 </template>
 
 <script>
 import Wolf from "../components/wolf";
-import { mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "app",
@@ -15,9 +18,7 @@ export default {
     Wolf
   },
   computed: {
-    ...mapGetters({
-      allWolves: "wolves/allWolves"
-    })
+    ...mapState("wolves", ["allWolves", "isLoading"])
   },
   methods: {
     ...mapActions("wolves", ["getAllWolves"])

@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div v-if="!isLoading">
+    <div v-if="!packLoading">
       <h1>Pack {{ selectedPack.name }}</h1>
       <pack :selectedPack="selectedPack"></pack>
       <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf"></wolf>
     </div>
-    <div v-if="isLoading">Loading...</div>
+    <div v-if="packLoading">Loading...</div>
   </div>
 </template>
 
 <script>
 import Pack from "../components/pack";
 import Wolf from "../components/wolf";
-import { mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "app",
@@ -21,10 +21,7 @@ export default {
     Wolf
   },
   computed: {
-    ...mapGetters({
-      selectedPack: "packs/selectedPack",
-      isLoading: "packs/loading"
-    })
+    ...mapState("packs", ["selectedPack", "packLoading"])
   },
   methods: {
     ...mapActions("packs", ["getPack"])

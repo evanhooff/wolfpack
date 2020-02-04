@@ -7,14 +7,8 @@ const state = {
 }
 
 const getters = {
-  loading: state => {
-    return state.packLoading;
-  },
   allPacks: state => {
     return state.allPacks;
-  },
-  selectedPack: state => {
-    return state.selectedPack;
   }
 }
 
@@ -25,6 +19,7 @@ const actions = {
     });
   },
   getPack: (store, id) => {
+    store.commit('setLoadingState', true);
     rest.getPack(id).then(pack => {
       store.commit('setLoadingState', false);
       store.commit('setSelectedPack', pack);
