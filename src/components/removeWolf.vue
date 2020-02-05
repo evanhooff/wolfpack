@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- button to delete the wolf entirely -->
-    <button class="btn btn-primary" @click="deleteWolf">delete</button>
+    <!-- if the pack id is set, this wolf is displayed on the pack overview page -->
+    <button class="btn btn-secondary" v-if="packId" @click="removeFromPack">remove</button>
 
     <!-- error message on deleting or removing a wolf -->
     <b-alert :show="showError" dismissible>{{ errorMessage }}</b-alert>
@@ -18,6 +18,10 @@ export default {
     wolfId: {
       type: Number,
       required: true
+    },
+    packId: {
+      type: Number,
+      required: false
     }
   },
   data() {
@@ -35,17 +39,19 @@ export default {
     }
   },
   methods: {
-    // function to delete the wolf entirely
-    deleteWolf() {
+    // function to remove the wolf from the pack
+    removeFromPack() {
       rest
-        .deleteWolf({ id: this.wolfId })
+        .removeWolfFromPack({
+          wolfId: this.wolfId,
+          packId: this.packId
+        })
         .then(response => {
           // emit to parent to reload the view
           // parse response data to display the deleted wolf
-          this.$emit("deleted", response.data);
+          this.$emit("removed", response.data);
         })
         .catch(error => {
-          // display error
           this.showError = true;
           this.errorMessage = error.message;
         });

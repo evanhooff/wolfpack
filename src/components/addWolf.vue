@@ -61,15 +61,13 @@ export default {
         .then(() => {
           // on success: hide modal
           this.$bvModal.hide("add-wolf");
+          // display data of added wolf and reset the view
+          this.$emit("added", this.selectedWolf);
           // reset the form
           this.resetForm();
-          // display data of added wolf
-          // reset the view
-          this.$emit("added", this.selectedWolf);
         })
         .catch(error => {
           // on error: display server error response
-          console.log("error", error);
           this.showErrorMessage = true;
           this.error = error.data;
         });

@@ -17,12 +17,8 @@
 
       <!-- all wolves in a pack -->
       <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf">
-        <delete-wolf
-          :packId="selectedPack.id"
-          :wolfId="wolf.id"
-          @deleted="wolfDeleted"
-          @removed="wolfRemoved"
-        ></delete-wolf>
+        <remove-wolf :wolfId="wolf.id" :packId="selectedPack.id" @removed="wolfRemoved"></remove-wolf>
+        <delete-wolf :wolfId="wolf.id" @deleted="wolfRemoved"></delete-wolf>
       </wolf>
     </div>
     <div v-if="packLoading">Loading...</div>
@@ -33,6 +29,7 @@
 import Pack from "../components/pack";
 import Wolf from "../components/wolf";
 import deleteWolf from "../components/deleteWolf";
+import removeWolf from "../components/removeWolf";
 import addWolf from "../components/addWolf";
 import { mapState, mapActions, mapGetters } from "vuex";
 
@@ -42,6 +39,7 @@ export default {
     Pack,
     Wolf,
     deleteWolf,
+    removeWolf,
     addWolf
   },
   data() {
