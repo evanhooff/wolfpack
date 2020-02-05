@@ -1,29 +1,12 @@
-body,
-a,
-a:hover {
-    color: $light;
-}
-
-.muted {
-    color: $muted;
-}
-
-.form-label {
-    color: $muted;
-}
-
-h1,
-.font,
-.form-label,
-.btn,
-.cta {
-    font-family: "Major Mono Display";
-}
-
-.uppercase {
-    text-transform: uppercase;
+body {
+  font-family: "Libre Franklin", sans-serif;
 }
 
 h1 {
-    font-weight: normal;
+  font-family: "Bender", sans-serif;
+  font-weight: bold;
+}
+
+.redslash {
+  color: $red;
 }

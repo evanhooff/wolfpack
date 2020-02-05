@@ -1,23 +1,33 @@
 // pack menu
 <template>
   <div>
-    <h2>Select Pack:</h2>
-    <router-link to="/">all wolves</router-link>
-    <p v-for="pack in allPacks" :key="pack.id">
-      <router-link :to="`/pack/${pack.id}`">{{pack.name}}</router-link>
-    </p>
+    <span>Select Pack:</span>
+
+    <b-dropdown
+      id="pack-selector-menu"
+      :text="(selectedPack) ? selectedPack.name : 'All wolves'"
+      class="m-md-2"
+    >
+      <b-dropdown-item>
+        <router-link to="/">all wolves</router-link>
+      </b-dropdown-item>
+      <b-dropdown-item v-for="pack in allPacks" :key="pack.id">
+        <router-link :to="`/pack/${pack.id}`">{{pack.name}}</router-link>
+      </b-dropdown-item>
+    </b-dropdown>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   name: "packSelector",
   computed: {
     ...mapGetters({
       allPacks: "packs/allPacks"
-    })
+    }),
+    ...mapState("packs", ["selectedPack"])
   },
   methods: {
     ...mapActions("packs", ["getAllPacks"])

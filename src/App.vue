@@ -1,8 +1,17 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <pack-selector></pack-selector>
-    <router-view></router-view>
+  <div>
+    <!-- <img alt="Wolpack logo" src="./assets/Wolfpack_logo.jpg"> -->
+    <header class="header">
+      <div class="logo">
+        <h1>
+          <span class="redslash">/</span>WOLFPACK
+        </h1>
+      </div>
+      <pack-selector></pack-selector>
+    </header>
+    <main class="main">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
@@ -18,12 +27,4 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

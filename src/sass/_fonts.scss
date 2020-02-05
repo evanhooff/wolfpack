@@ -1,8 +1,24 @@
-/* @import must be at top of file, otherwise CSS will not work */
-
-@import url("https://fonts.googleapis.com/css?family=Major+Mono+Display");
+@import url("https://fonts.googleapis.com/css?family=Libre+Franklin&display=swap");
 
 @font-face {
-    font-family: "Major Mono Display", monospace;
-    src: url("https://fonts.googleapis.com/css?family=Major+Mono+Display");
+  font-family: "Libre Franklin";
+  src: url("https://fonts.googleapis.com/css?family=Libre+Franklin&display=swap");
+}
+
+@font-face {
+  font-family: "Bender";
+  font-style: normal;
+  src: url("../assets/font/Bender.otf");
+}
+
+@font-face {
+  font-family: "Bender";
+  font-style: italic;
+  src: url("../assets/font/Bender Italic.otf");
+}
+
+@font-face {
+  font-family: "Bender";
+  font-style: bold;
+  src: url("../assets/font/Bender Bold.otf");
 }
