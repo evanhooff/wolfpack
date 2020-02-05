@@ -2,7 +2,7 @@
   <div>
     <b-button v-b-modal.add-wolf>Add Wolf</b-button>
 
-    <b-alert v-if="wolf" v-model="showAddedMessage" dismissible>{{ wolf.name }} is added as a wolf!</b-alert>
+    <b-alert v-if="wolf" :show="showAddedMessage" dismissible>{{ wolf.name }} is added as a wolf!</b-alert>
 
     <b-modal id="add-wolf" title="Add a new wolf" :hide-footer="true">
       <b-form @submit="onSubmit" @reset="onReset" v-if="showModal">
@@ -18,7 +18,7 @@
           <b-form-input id="date-input" v-model="form.birthday" type="date" required></b-form-input>
         </b-form-group>
 
-        <b-alert v-if="error" v-modal="showErrorMessage" dismissible>
+        <b-alert v-if="error" :show="showErrorMessage" dismissible>
           {{ error.message }}
           <p v-for="(field, index) in error.errors" :key="index">{{ field[0] }}</p>
         </b-alert>
@@ -86,12 +86,8 @@ export default {
       });
     },
     resetForm() {
-      // reset the error message
-      this.error = undefined;
       // Reset our form values
-      this.form.name = "";
-      this.form.gender = null;
-      this.form.birthday = "";
+      Object.assign(this.$data, this.$options.data.apply(this));
     }
   }
 };

@@ -7,7 +7,9 @@
     <b-alert v-model="showDeletedMessage" dismissible>Wolf was deleted.</b-alert>
 
     <div v-if="!isLoading">
-      <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf" @deleted="wolfDeleted"></wolf>
+      <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf">
+        <delete-wolf :wolfId="wolf.id" @deleted="wolfDeleted"></delete-wolf>
+      </wolf>
     </div>
     <div v-if="isLoading">Loading...</div>
   </div>
@@ -16,13 +18,15 @@
 <script>
 import Wolf from "../components/wolf";
 import addWolf from "../components/addWolf";
+import deleteWolf from "../components/deleteWolf";
 import { mapState, mapActions } from "vuex";
 
 export default {
   name: "app",
   components: {
     Wolf,
-    addWolf
+    addWolf,
+    deleteWolf
   },
   data() {
     return {
@@ -39,7 +43,6 @@ export default {
     ...mapActions("wolves", ["getAllWolves"]),
     updateView() {
       // update the wolves after adding, deleting and updating
-      console.log("update view");
       this.getAllWolves();
     },
     wolfDeleted() {

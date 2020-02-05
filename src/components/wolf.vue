@@ -3,18 +3,11 @@
     {{wolf.name}}
     {{wolf.gender}}
     {{wolf.birthday | dateFormat}}
-    <!-- if the pack id is set, this wolf is displayed on the pack overview page -->
-    <button class="btn btn-secondary" v-if="packId" @click="removeFromPack">remove</button>
-    <!-- button to delete the wolf entirely -->
-    <button class="btn btn-primary" @click="deleteWolf">delete</button>
-
-    <!-- error message on deleting a wolf -->
-    <b-alert v-model="deleteError" dismissible>{{ deleteError }}</b-alert>
+    <slot></slot>
   </div>
 </template>
 
 <script>
-import rest from "../api/rest";
 import moment from "moment";
 
 export default {
@@ -23,16 +16,7 @@ export default {
     wolf: {
       type: Object,
       required: true
-    },
-    packId: {
-      type: Number,
-      required: false
     }
-  },
-  data() {
-    return {
-      deleteError: undefined // used for displaying delete error
-    };
   },
   filters: {
     // format for the birthdate
@@ -41,33 +25,6 @@ export default {
       const formattedDate = moment(date).format("DD/MM/YYYY");
       return formattedDate;
     }
-  },
-  methods: {
-    // function to delete the wolf entirely
-    deleteWolf() {
-      rest
-        .deleteWolf({ id: this.wolf.id })
-        .then(response => {
-          // emit to parent to reload the view
-          // parse response data to display the deleted wolf
-          this.$emit("deleted", response.data);
-        })
-        .catch(error => {
-          // display error
-          this.deleteError = error;
-        });
-    },
-    // function to remove the wolf from the pack
-    removeFromPack() {
-      console.log(`remove ${this.wolf.id} from pack ${this.packId}`);
-      rest.removeWolfFromPack({
-        wolfId: this.wolf.id,
-        packId: this.packId
-      });
-    }
   }
 };
 </script>
-
-<style scoped>
-</style>
