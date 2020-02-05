@@ -19,7 +19,7 @@
 import Wolf from "../components/wolf";
 import createWolf from "../components/createWolf";
 import deleteWolf from "../components/deleteWolf";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "app",
@@ -34,7 +34,8 @@ export default {
     };
   },
   computed: {
-    ...mapState("wolves", ["allWolves", "isLoading"])
+    ...mapState("wolves", ["isLoading"]),
+    ...mapGetters("wolves", ["allWolves"])
   },
   mounted() {
     this.getAllWolves();

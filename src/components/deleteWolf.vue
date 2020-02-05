@@ -5,8 +5,8 @@
     <!-- button to delete the wolf entirely -->
     <button class="btn btn-primary" @click="deleteWolf">delete</button>
 
-    <!-- error message on deleting a wolf -->
-    <b-alert :show="showDeleteError" dismissible>{{ deleteError }}</b-alert>
+    <!-- error message on deleting or removing a wolf -->
+    <b-alert :show="showError" dismissible>{{ errorMessage }}</b-alert>
   </div>
 </template>
 
@@ -28,8 +28,8 @@ export default {
   },
   data() {
     return {
-      showDeleteError: false,
-      deleteError: undefined // used for displaying delete error
+      showError: false, // used for displaying delete error
+      errorMessage: undefined
     };
   },
   filters: {
@@ -52,17 +52,30 @@ export default {
         })
         .catch(error => {
           // display error
-          this.showDeleteError = true;
-          this.deleteError = error.message;
+          this.showErrorMessage(error);
         });
     },
     // function to remove the wolf from the pack
     removeFromPack() {
       console.log(`remove ${this.wolfId} from pack ${this.packId}`);
-      rest.removeWolfFromPack({
-        wolfId: this.wolfId,
-        packId: this.packId
-      });
+      rest
+        .removeWolfFromPack({
+          wolfId: this.wolfId,
+          packId: this.packId
+        })
+        .then(response => {
+          // emit to parent to reload the view
+          // parse response data to display the deleted wolf
+          this.$emit("removed", response.data);
+        })
+        .catch(error => {
+          // display error
+          this.showErrorMessage(error);
+        });
+    },
+    showErrorMessage(error) {
+      this.showError = true;
+      this.errorMessage = error.message;
     }
   }
 };

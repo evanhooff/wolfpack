@@ -9,6 +9,11 @@ const state = {
 const getters = {
   allPacks: state => {
     return state.allPacks;
+  },
+  selectedPack: state => {
+    let reversedWolves = state.selectedPack;
+    reversedWolves.wolves = reversedWolves.wolves.reverse();
+    return reversedWolves;
   }
 }
 

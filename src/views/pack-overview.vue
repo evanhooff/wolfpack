@@ -7,19 +7,22 @@
 
       <!-- pack information -->
       <h1>Pack {{ selectedPack.name }}</h1>
+
+      <!-- pack details -->
       <pack :selectedPack="selectedPack"></pack>
 
       <!-- add wolf to pack -->
       <add-wolf :pack="selectedPack" @added="wolfAddedToPack"></add-wolf>
+      <b-alert v-model="showRemovedMessage" dismissible>Wolf was removed from this pack.</b-alert>
 
       <!-- all wolves in a pack -->
-      <wolf
-        v-for="wolf in selectedPack.wolves.reverse()"
-        :key="wolf.id"
-        :wolf="wolf"
-        :class="{ blink: newWolf }"
-      >
-        <delete-wolf :packId="selectedPack.id" :wolfId="wolf.id" @deleted="wolfDeleted"></delete-wolf>
+      <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf">
+        <delete-wolf
+          :packId="selectedPack.id"
+          :wolfId="wolf.id"
+          @deleted="wolfDeleted"
+          @removed="wolfRemoved"
+        ></delete-wolf>
       </wolf>
     </div>
     <div v-if="packLoading">Loading...</div>
@@ -31,7 +34,7 @@ import Pack from "../components/pack";
 import Wolf from "../components/wolf";
 import deleteWolf from "../components/deleteWolf";
 import addWolf from "../components/addWolf";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "app",
@@ -44,33 +47,36 @@ export default {
   data() {
     return {
       showDeletedMessage: false,
+      showRemovedMessage: false,
       newWolf: undefined
     };
   },
   computed: {
-    ...mapState("packs", ["selectedPack", "packLoading"])
+    ...mapState("packs", ["packLoading"]),
+    ...mapGetters("packs", ["selectedPack"])
   },
   methods: {
     ...mapActions("packs", ["getPack"]),
-    updateView(id) {
-      // update the list of wolves
-      this.getPack(id);
-    },
     wolfDeleted() {
       // show message when deleted
       this.showDeletedMessage = true;
-      this.updateView(this.$route.params.id);
+      this.getPack(this.$route.params.id);
+    },
+    wolfRemoved() {
+      // show message when removed from pack
+      this.showRemovedMessage = true;
+      this.getPack(this.$route.params.id);
     },
     wolfAddedToPack(wolfId) {
       console.log(wolfId);
       this.newWolf = wolfId;
-      this.updateView(this.$route.params.id);
+      this.getPack(this.$route.params.id);
     }
   },
   mounted() {
-    this.updateView(this.$route.params.id);
+    this.getPack(this.$route.params.id);
     this.$router.beforeEach((to, from, next) => {
-      this.updateView(to.params.id);
+      this.getPack(to.params.id);
       next();
     });
   }
