@@ -19,6 +19,7 @@ const actions = {
     });
   },
   getPack: (store, id) => {
+    console.log('get pack');
     store.commit('setLoadingState', true);
     rest.getPack(id).then(pack => {
       store.commit('setLoadingState', false);

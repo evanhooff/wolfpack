@@ -33,11 +33,9 @@ export default {
     ...mapActions("packs", ["getPack"])
   },
   beforeMount() {
-    this.getPack(this.$route.params.id);
-    this.$router.beforeEach((to, from, next) => {
-      this.getPack(to.params.id);
-      next();
-    });
+    if (this.$route.params.id) {
+      this.getPack(this.$route.params.id);
+    }
   }
 };
 </script>

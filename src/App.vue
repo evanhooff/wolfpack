@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <img alt="Wolpack logo" src="./assets/Wolfpack_logo.jpg"> -->
     <header class="header">
       <div class="logo">
         <h1>
