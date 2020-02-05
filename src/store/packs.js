@@ -19,12 +19,15 @@ const actions = {
     });
   },
   getPack: (store, id) => {
-    console.log('get pack');
-    store.commit('setLoadingState', true);
-    rest.getPack(id).then(pack => {
-      store.commit('setLoadingState', false);
-      store.commit('setSelectedPack', pack);
-    });
+    if (id) {
+      store.commit('setLoadingState', true);
+      rest.getPack(id).then(pack => {
+        store.commit('setLoadingState', false);
+        store.commit('setSelectedPack', pack);
+      });
+    } else {
+      store.commit('setSelectedPack', undefined);
+    }
   }
 }
 

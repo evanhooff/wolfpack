@@ -8,12 +8,12 @@
       :text="(selectedPack) ? selectedPack.name : 'All wolves'"
       class="m-md-2"
     >
-      <b-dropdown-item>
-        <router-link to="/">all wolves</router-link>
-      </b-dropdown-item>
-      <b-dropdown-item v-for="pack in allPacks" :key="pack.id">
-        <router-link :to="`/pack/${pack.id}`">{{pack.name}}</router-link>
-      </b-dropdown-item>
+      <b-dropdown-item :to="'/'">all wolves</b-dropdown-item>
+      <b-dropdown-item
+        v-for="pack in allPacks"
+        :key="pack.id"
+        :to="`/pack/${pack.id}`"
+      >{{pack.name}}</b-dropdown-item>
     </b-dropdown>
   </div>
 </template>
