@@ -1,3 +1,4 @@
+// single pack view
 <template>
   <div>
     <div v-if="!packLoading">

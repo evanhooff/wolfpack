@@ -1,3 +1,4 @@
+// all wolves overview
 <template>
   <div>
     <h1>All Wolves</h1>

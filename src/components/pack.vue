@@ -1,3 +1,6 @@
+// display the details of a single pack
+// takes the selected pack as input
+// todo: add map
 <template>
   <div>Location: {{ selectedPack.lat }} / {{ selectedPack.lng }}</div>
 </template>

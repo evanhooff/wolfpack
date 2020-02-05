@@ -1,8 +1,9 @@
+// pack menu
 <template>
   <div>
     <h2>Select Pack:</h2>
     <router-link to="/">all wolves</router-link>
-    <p v-for="(pack, index) in allPacks" :key="index">
+    <p v-for="pack in allPacks" :key="pack.id">
       <router-link :to="`/pack/${pack.id}`">{{pack.name}}</router-link>
     </p>
   </div>
