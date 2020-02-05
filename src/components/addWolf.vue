@@ -1,21 +1,11 @@
 <template>
   <div>
-    <b-button v-b-modal.add-wolf>Add Wolf</b-button>
+    <b-button v-b-modal.add-wolf>Add Wolf to this Pack</b-button>
 
-    <b-alert v-if="wolf" :show="showAddedMessage" dismissible>{{ wolf.name }} is added as a wolf!</b-alert>
-
-    <b-modal id="add-wolf" title="Add a new wolf" :hide-footer="true">
-      <b-form @submit="onSubmit" @reset="onReset" v-if="showModal">
-        <b-form-group id="name-input-group" label="Name:" label-for="name-input">
-          <b-form-input id="name-input" v-model="form.name" required placeholder="Enter name"></b-form-input>
-        </b-form-group>
-
-        <b-form-group id="gender-input-group" label="Gender:" label-for="gender-input">
-          <b-form-select id="gender-input" v-model="form.gender" :options="genders" required></b-form-select>
-        </b-form-group>
-
-        <b-form-group id="date-input-group" label="Birtday:" label-for="date-input">
-          <b-form-input id="date-input" v-model="form.birthday" type="date" required></b-form-input>
+    <b-modal id="add-wolf" :title="`Add a wolf to ${pack.name}`" :hide-footer="true">
+      <b-form @submit="submitWolf" @reset="onReset" v-if="showModal">
+        <b-form-group id="wolf-input-group" label="Select a wolf:" label-for="wolf-input">
+          <b-form-select id="wolf-input" v-model="selectedWolf" :options="allWolves" required></b-form-select>
         </b-form-group>
 
         <b-alert v-if="error" :show="showErrorMessage" dismissible>
@@ -32,46 +22,54 @@
 
 <script>
 import rest from "../api/rest";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "addWolf",
+  props: {
+    pack: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      form: {
-        name: "",
-        gender: null,
-        birthday: ""
-      },
-      genders: [{ text: "Select Gender", value: null }, "female", "male"],
+      selectedWolf: null,
       showModal: true,
-      showAddedMessage: false,
-      wolf: undefined, // used to display success adding wolf message
-      showErrorMessage: false,
-      error: undefined // used to display error adding wolf message
+      showErrorMessage: false, // used to display error adding wolf message
+      error: undefined // used to display error message
     };
   },
+  computed: {
+    ...mapState("wolves", ["allWolves"])
+  },
+  beforeMount() {
+    this.getAllWolves();
+  },
   methods: {
-    onSubmit(evt) {
+    ...mapActions("wolves", ["getAllWolves"]),
+    submitWolf(evt) {
       evt.preventDefault();
       // reset the error message
       this.error = undefined;
       this.showErrorMessage = false;
-      this.showAddedMessage = false;
       rest
-        .addWolf(this.form)
-        .then(response => {
+        .addWolfToPack({
+          wolfId: this.selectedWolf,
+          packId: this.pack.id
+        })
+        .then(() => {
           // on success: hide modal
           this.$bvModal.hide("add-wolf");
           // reset the form
           this.resetForm();
           // display data of added wolf
-          this.showAddedMessage = true;
-          this.wolf = response.data;
           // reset the view
-          this.$emit("added");
+          this.$emit("added", this.selectedWolf);
         })
         .catch(error => {
           // on error: display server error response
+          console.log("error", error);
           this.showErrorMessage = true;
           this.error = error.data;
         });
@@ -86,7 +84,7 @@ export default {
       });
     },
     resetForm() {
-      // Reset our form values
+      // Reset all form values to default
       Object.assign(this.$data, this.$options.data.apply(this));
     }
   }

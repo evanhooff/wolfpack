@@ -5,12 +5,6 @@ const state = {
   allWolves: null
 }
 
-const getters = {
-  allWolves: state => {
-    return state.allWolves;
-  }
-}
-
 const actions = {
   getAllWolves: store => {
     store.commit('setLoadingState', true);
@@ -26,14 +20,18 @@ const mutations = {
     state.isLoading = isLoading;
   },
   setAllWolves(state, wolves) {
-    state.allWolves = wolves;
+    let allData = wolves.map((wolf) => {
+      wolf.value = wolf.id;
+      wolf.text = wolf.name;
+      return wolf;
+    });
+    state.allWolves = allData.reverse();
   }
 }
 
 export default {
   namespaced: true,
   state,
-  getters,
   actions,
   mutations
 };

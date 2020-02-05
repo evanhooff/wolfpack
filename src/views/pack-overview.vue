@@ -5,9 +5,20 @@
       <!-- success message on deleting a wolf -->
       <b-alert v-model="showDeletedMessage" dismissible>Wolf was deleted.</b-alert>
 
+      <!-- pack information -->
       <h1>Pack {{ selectedPack.name }}</h1>
       <pack :selectedPack="selectedPack"></pack>
-      <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf">
+
+      <!-- add wolf to pack -->
+      <add-wolf :pack="selectedPack" @added="wolfAddedToPack"></add-wolf>
+
+      <!-- all wolves in a pack -->
+      <wolf
+        v-for="wolf in selectedPack.wolves.reverse()"
+        :key="wolf.id"
+        :wolf="wolf"
+        :class="{ blink: newWolf }"
+      >
         <delete-wolf :packId="selectedPack.id" :wolfId="wolf.id" @deleted="wolfDeleted"></delete-wolf>
       </wolf>
     </div>
@@ -19,6 +30,7 @@
 import Pack from "../components/pack";
 import Wolf from "../components/wolf";
 import deleteWolf from "../components/deleteWolf";
+import addWolf from "../components/addWolf";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -26,11 +38,13 @@ export default {
   components: {
     Pack,
     Wolf,
-    deleteWolf
+    deleteWolf,
+    addWolf
   },
   data() {
     return {
-      showDeletedMessage: false
+      showDeletedMessage: false,
+      newWolf: undefined
     };
   },
   computed: {
@@ -39,11 +53,17 @@ export default {
   methods: {
     ...mapActions("packs", ["getPack"]),
     updateView(id) {
-      // update the wolves after adding, deleting and updating
+      // update the list of wolves
       this.getPack(id);
     },
     wolfDeleted() {
+      // show message when deleted
       this.showDeletedMessage = true;
+      this.updateView(this.$route.params.id);
+    },
+    wolfAddedToPack(wolfId) {
+      console.log(wolfId);
+      this.newWolf = wolfId;
       this.updateView(this.$route.params.id);
     }
   },

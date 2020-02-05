@@ -6,7 +6,7 @@
     <button class="btn btn-primary" @click="deleteWolf">delete</button>
 
     <!-- error message on deleting a wolf -->
-    <b-alert v-model="deleteError" dismissible>{{ deleteError }}</b-alert>
+    <b-alert :show="showDeleteError" dismissible>{{ deleteError }}</b-alert>
   </div>
 </template>
 
@@ -28,6 +28,7 @@ export default {
   },
   data() {
     return {
+      showDeleteError: false,
       deleteError: undefined // used for displaying delete error
     };
   },
@@ -51,7 +52,8 @@ export default {
         })
         .catch(error => {
           // display error
-          this.deleteError = error;
+          this.showDeleteError = true;
+          this.deleteError = error.message;
         });
     },
     // function to remove the wolf from the pack

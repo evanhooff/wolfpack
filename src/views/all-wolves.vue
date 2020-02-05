@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>All Wolves</h1>
-    <add-wolf @added="updateView"></add-wolf>
+    <create-wolf @created="getAllWolves"></create-wolf>
 
     <!-- success message on deleting a wolf -->
     <b-alert v-model="showDeletedMessage" dismissible>Wolf was deleted.</b-alert>
@@ -17,7 +17,7 @@
 
 <script>
 import Wolf from "../components/wolf";
-import addWolf from "../components/addWolf";
+import createWolf from "../components/createWolf";
 import deleteWolf from "../components/deleteWolf";
 import { mapState, mapActions } from "vuex";
 
@@ -25,7 +25,7 @@ export default {
   name: "app",
   components: {
     Wolf,
-    addWolf,
+    createWolf,
     deleteWolf
   },
   data() {
@@ -37,17 +37,13 @@ export default {
     ...mapState("wolves", ["allWolves", "isLoading"])
   },
   mounted() {
-    this.updateView();
+    this.getAllWolves();
   },
   methods: {
     ...mapActions("wolves", ["getAllWolves"]),
-    updateView() {
-      // update the wolves after adding, deleting and updating
-      this.getAllWolves();
-    },
     wolfDeleted() {
       this.showDeletedMessage = true;
-      this.updateView();
+      this.getAllWolves();
     }
   }
 };
