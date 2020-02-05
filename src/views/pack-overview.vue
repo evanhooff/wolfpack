@@ -61,12 +61,10 @@ export default {
       this.getPack(this.$route.params.id);
     },
     wolfRemoved() {
-      // show message when removed from pack
       this.showRemovedMessage = true;
       this.getPack(this.$route.params.id);
     },
     wolfAddedToPack(wolfId) {
-      console.log(wolfId);
       this.newWolf = wolfId;
       this.getPack(this.$route.params.id);
     }

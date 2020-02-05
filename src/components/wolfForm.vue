@@ -12,10 +12,7 @@
       <b-form-input id="date-input" v-model="form.birthday" type="date" required></b-form-input>
     </b-form-group>
 
-    <b-alert v-if="error" :show="showErrorMessage" dismissible>
-      {{ error.message }}
-      <p v-for="(field, index) in error.errors" :key="index">{{ field[0] }}</p>
-    </b-alert>
+    <slot></slot>
 
     <b-button type="submit" variant="primary">Submit</b-button>
     <b-button type="reset" variant="light">Reset</b-button>
@@ -25,24 +22,34 @@
 <script>
 export default {
   name: "wolfForm",
+  props: {
+    wolf: {
+      type: Object,
+      required: false,
+      default() {
+        return {
+          id: "",
+          name: "",
+          gender: null,
+          birthday: ""
+        };
+      }
+    }
+  },
   data() {
     return {
       form: {
-        name: "",
-        gender: null,
-        birthday: ""
+        id: this.wolf.id,
+        name: this.wolf.name,
+        gender: this.wolf.gender,
+        birthday: this.wolf.birthday
       },
-      genders: [{ text: "Select Gender", value: null }, "female", "male"],
-      showErrorMessage: false, // used to display error creating wolf message
-      error: undefined // used to display error message
+      genders: [{ text: "Select Gender", value: null }, "female", "male"]
     };
   },
   methods: {
     submitWolf(evt) {
       evt.preventDefault();
-      // reset the error message
-      this.error = undefined;
-      this.showErrorMessage = false;
 
       // emit form data to parent
       this.$emit("submit", this.form);

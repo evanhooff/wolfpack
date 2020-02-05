@@ -9,7 +9,12 @@
     >{{ wolf.name }} is created as a wolf!</b-alert>
 
     <b-modal id="create-wolf" title="Create a new wolf" :hide-footer="true">
-      <wolf-form @submit="createWolf"></wolf-form>
+      <wolf-form @submit="createWolf">
+        <b-alert v-if="error" :show="showErrorMessage" dismissible>
+          {{ error.message }}
+          <p v-for="(field, index) in error.errors" :key="index">{{ field[0] }}</p>
+        </b-alert>
+      </wolf-form>
     </b-modal>
   </div>
 </template>
@@ -27,12 +32,17 @@ export default {
     return {
       showModal: true,
       showCreatedMessage: false,
-      wolf: undefined // used to display success creating wolf message
+      wolf: undefined, // used to display success creating wolf message,
+      showErrorMessage: false, // used to display error creating wolf message
+      error: undefined // used to display error message
     };
   },
   methods: {
     createWolf(formData) {
       this.showCreatedMessage = false;
+      this.error = undefined;
+      this.showErrorMessage = false;
+
       rest
         .createWolf(formData)
         .then(response => {
