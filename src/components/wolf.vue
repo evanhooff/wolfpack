@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wolf">
     {{wolf.name}}
     {{wolf.gender}}
     {{wolf.birthday | dateFormat}}

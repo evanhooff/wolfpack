@@ -1,3 +1,19 @@
 body {
   background-color: $light;
 }
+
+@keyframes blink {
+  0% {
+    background-color: $red;
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.wolf {
+  &.blink {
+    animation: blink 2s;
+  }
+}

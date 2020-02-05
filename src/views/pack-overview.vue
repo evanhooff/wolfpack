@@ -16,7 +16,12 @@
       <b-alert v-model="showRemovedMessage" dismissible>Wolf was removed from this pack.</b-alert>
 
       <!-- all wolves in a pack -->
-      <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf">
+      <wolf
+        v-for="wolf in selectedPack.wolves"
+        :key="wolf.id"
+        :wolf="wolf"
+        :class="{ 'blink': wolf.id === newWolf}"
+      >
         <remove-wolf :wolfId="wolf.id" :packId="selectedPack.id" @removed="wolfRemoved"></remove-wolf>
         <delete-wolf :wolfId="wolf.id" @deleted="wolfRemoved"></delete-wolf>
       </wolf>
