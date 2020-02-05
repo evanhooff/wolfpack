@@ -32,7 +32,7 @@ export default {
   methods: {
     ...mapActions("packs", ["getPack"])
   },
-  beforeMount() {
+  mounted() {
     this.getPack(this.$route.params.id);
     this.$router.beforeEach((to, from, next) => {
       this.getPack(to.params.id);

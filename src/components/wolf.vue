@@ -7,14 +7,14 @@
     <button class="btn btn-secondary" v-if="packId" @click="removeFromPack">remove</button>
     <!-- button to delete the wolf entirely -->
     <button class="btn btn-primary" @click="deleteWolf">delete</button>
+
+    <!-- error message on deleting a wolf -->
+    <b-alert v-model="deleteError" dismissible>{{ deleteError }}</b-alert>
   </div>
 </template>
 
 <script>
-// single wolf view
-
 import rest from "../api/rest";
-// date formatter
 import moment from "moment";
 
 export default {
@@ -29,6 +29,11 @@ export default {
       required: false
     }
   },
+  data() {
+    return {
+      deleteError: undefined // used for displaying delete error
+    };
+  },
   filters: {
     // format for the birthdate
     dateFormat: function(date) {
@@ -40,8 +45,17 @@ export default {
   methods: {
     // function to delete the wolf entirely
     deleteWolf() {
-      console.log(`delete ${this.wolf.id}`);
-      rest.deleteWolf({ id: this.wolf.id });
+      rest
+        .deleteWolf({ id: this.wolf.id })
+        .then(response => {
+          // emit to parent to reload the view
+          // parse response data to display the deleted wolf
+          this.$emit("deleted", response.data);
+        })
+        .catch(error => {
+          // display error
+          this.deleteError = error;
+        });
     },
     // function to remove the wolf from the pack
     removeFromPack() {
