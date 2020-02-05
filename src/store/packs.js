@@ -19,6 +19,7 @@ const actions = {
     });
   },
   getPack: (store, id) => {
+    console.log('hier!', id);
     if (id) {
       store.commit('setLoadingState', true);
       rest.getPack(id).then(pack => {

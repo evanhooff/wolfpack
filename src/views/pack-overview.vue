@@ -38,19 +38,19 @@ export default {
   },
   methods: {
     ...mapActions("packs", ["getPack"]),
-    updateView() {
+    updateView(id) {
       // update the wolves after adding, deleting and updating
-      this.getPack(this.$route.params.id);
+      this.getPack(id);
     },
     wolfDeleted() {
       this.showDeletedMessage = true;
-      this.updateView();
+      this.updateView(this.$route.params.id);
     }
   },
   mounted() {
-    this.updateView();
+    this.updateView(this.$route.params.id);
     this.$router.beforeEach((to, from, next) => {
-      this.updateView();
+      this.updateView(to.params.id);
       next();
     });
   }
