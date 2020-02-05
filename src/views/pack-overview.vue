@@ -4,7 +4,12 @@
     <div v-if="!packLoading">
       <h1>Pack {{ selectedPack.name }}</h1>
       <pack :selectedPack="selectedPack"></pack>
-      <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf"></wolf>
+      <wolf
+        v-for="wolf in selectedPack.wolves"
+        :key="wolf.id"
+        :packId="selectedPack.id"
+        :wolf="wolf"
+      ></wolf>
     </div>
     <div v-if="packLoading">Loading...</div>
   </div>
