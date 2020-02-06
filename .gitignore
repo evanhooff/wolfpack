@@ -3,9 +3,6 @@ node_modules
 /dist
 /src/api/stub
 
-# remove from git so the api is not exposed
-.env
-
 # local env files
 .env.local
 .env.*.local
