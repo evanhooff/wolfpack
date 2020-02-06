@@ -9,6 +9,9 @@ const AllWolves = () =>
 const Pack = () =>
   import( /* webpackChunkName: "Pack" */ "@/views/pack-detail.vue");
 
+const Map = () =>
+  import( /* webpackChunkName: "Map" */ "@/views/map-overview.vue");
+
 let router = new VueRouter({
   routes: [{
       path: "/",
@@ -19,6 +22,11 @@ let router = new VueRouter({
       path: "/pack/:id",
       name: "pack",
       component: Pack
+    },
+    {
+      path: "/map",
+      name: "map",
+      component: Map
     }
   ]
 });

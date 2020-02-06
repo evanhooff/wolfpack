@@ -16,6 +16,9 @@
       >{{pack.name}}</b-dropdown-item>
     </b-dropdown>
 
+    <!-- link to map -->
+    <b-button :to="{ name: 'map' }" variant="primary">Show packs on map</b-button>
+
     <!-- create pack -->
     <create-pack @created="updateSelector"></create-pack>
   </div>

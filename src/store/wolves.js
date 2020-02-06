@@ -27,12 +27,11 @@ const mutations = {
     state.isLoading = isLoading;
   },
   setAllWolves(state, wolves) {
-    let allData = wolves.map((wolf) => {
+    state.allWolves = wolves.map((wolf) => {
       wolf.value = wolf.id;
       wolf.text = wolf.name;
       return wolf;
     });
-    state.allWolves = allData;
   }
 }
 

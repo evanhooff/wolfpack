@@ -24,6 +24,7 @@
     </div>
     <div v-if="packLoading && !error">Loading...</div>
 
+    <!-- todo: generic 404 -->
     <div v-if="packNotFound">
       <h1>Pack not found</h1>
     </div>

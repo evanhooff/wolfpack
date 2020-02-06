@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- button to delete the wolf entirely -->
-    <button class="btn btn-primary" @click="deleteWolf">delete</button>
+    <b-button variant="primary" @click="deleteWolf">delete</b-button>
 
     <!-- error message on deleting or removing a wolf -->
     <b-alert :show="showError" dismissible>{{ errorMessage }}</b-alert>

@@ -15,6 +15,20 @@ const getters = {
     let reversedWolves = state.selectedPack;
     reversedWolves.wolves = reversedWolves.wolves.reverse();
     return reversedWolves;
+  },
+  packLocations: state => {
+    if (state.allPacks) {
+      return state.allPacks.map(pack => {
+        let position = {};
+        position.lat = pack.lat;
+        position.lng = pack.lng;
+        let location = {};
+        location.position = position;
+        location.packId = pack.id;
+        return location;
+      });
+    }
+    return [];
   }
 }
 
