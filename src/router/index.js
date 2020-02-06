@@ -16,6 +16,7 @@ let router = new VueRouter({
     },
     {
       path: "/pack/:id",
+      name: "pack",
       component: Pack
     }
   ]

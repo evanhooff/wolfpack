@@ -15,14 +15,21 @@
         :to="`/pack/${pack.id}`"
       >{{pack.name}}</b-dropdown-item>
     </b-dropdown>
+
+    <!-- create pack -->
+    <create-pack @created="updateSelector"></create-pack>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
+import createPack from "./createPack";
 
 export default {
   name: "packSelector",
+  components: {
+    createPack
+  },
   computed: {
     ...mapGetters({
       allPacks: "packs/allPacks"
@@ -30,7 +37,10 @@ export default {
     ...mapState("packs", ["selectedPack"])
   },
   methods: {
-    ...mapActions("packs", ["getAllPacks"])
+    ...mapActions("packs", ["getAllPacks"]),
+    updateSelector() {
+      this.getAllPacks();
+    }
   },
   mounted() {
     this.getAllPacks();

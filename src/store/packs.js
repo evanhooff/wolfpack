@@ -29,6 +29,10 @@ const actions = {
       rest.getPack(id).then(pack => {
         store.commit('setLoadingState', false);
         store.commit('setSelectedPack', pack);
+      }).catch(error => {
+        // set selected pack to undefined
+        store.commit('setSelectedPack', undefined);
+        return Promise.reject(error);
       });
     } else {
       store.commit('setSelectedPack', undefined);

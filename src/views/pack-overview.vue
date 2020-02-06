@@ -2,8 +2,6 @@
 <template>
   <div>
     <div v-if="!packLoading">
-      <b-alert v-model="showAlert" dismissible>{{ alertMessage }}</b-alert>
-
       <!-- pack information -->
       <h1>Pack {{ selectedPack.name }}</h1>
       <delete-pack :packId="selectedPack.id" @deleted="showAlertMessage"></delete-pack>
@@ -13,6 +11,9 @@
 
       <!-- add wolf to pack -->
       <add-wolf :pack="selectedPack" @added="showAlertMessage"></add-wolf>
+
+      <!-- alert message for when adding/deleting wolf -->
+      <b-alert v-model="showAlert" dismissible>{{ alertMessage }}</b-alert>
 
       <!-- all wolves in a pack -->
       <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf">
@@ -59,13 +60,25 @@ export default {
     showAlertMessage(message) {
       this.showAlert = true;
       this.alertMessage = message;
-      this.getPack(this.$route.params.id);
+      this.getPack(this.$route.params.id).catch(error => {
+        console.log(this.packNotFound(error));
+      });
+    },
+    packNotFound(error) {
+      // pack not found, so redirect the user to the main view
+      console.log(error);
     }
   },
   mounted() {
-    this.getPack(this.$route.params.id);
+    this.getPack(this.$route.params.id).catch(error => {
+      console.log(this.packNotFound(error));
+    });
+
+    // needed for route change
     this.$router.beforeEach((to, from, next) => {
-      this.getPack(to.params.id);
+      this.getPack(to.params.id).catch(error => {
+        console.log(this.packNotFound(error));
+      });
       next();
     });
   }
