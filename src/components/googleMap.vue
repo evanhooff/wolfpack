@@ -6,7 +6,13 @@
         v-for="(m, index) in markers"
         :position="m.position"
         @click="markerClicked(m)"
-      ></gmap-marker>
+      >
+        <GmapInfoWindow :opened="m.id === markerOpened">
+          <h3>{{m.name}}</h3>
+          <b-button :to="`/pack/${m.id}`">View pack</b-button>
+          {{m}}
+        </GmapInfoWindow>
+      </gmap-marker>
     </gmap-map>
   </div>
 </template>
@@ -22,7 +28,8 @@ export default {
   },
   data() {
     return {
-      center: { lat: 45.508, lng: -73.587 }
+      center: { lat: 45.508, lng: -73.587 },
+      markerOpened: false
     };
   },
 
@@ -41,6 +48,7 @@ export default {
     },
     markerClicked(marker) {
       this.center = marker.position;
+      this.markerOpened = marker.id;
     }
   }
 };
