@@ -1,6 +1,9 @@
 // pack detail page
 <template>
   <div>
+    <!-- link to map -->
+    <b-button :to="{ name: 'map' }" variant="primary">Show packs on map</b-button>
+
     <div v-if="!packLoading">
       <!-- pack information -->
       <h1>Pack {{ selectedPack.name }}</h1>

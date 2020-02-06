@@ -1,11 +1,11 @@
 <template>
   <div>
-    <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
+    <gmap-map :center="center" :zoom="8" style="width:100%;  height: 400px;">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
-        @click="center=m.position"
+        @click="markerClicked(m)"
       ></gmap-marker>
     </gmap-map>
   </div>
@@ -38,6 +38,9 @@ export default {
           lng: position.coords.longitude
         };
       });
+    },
+    markerClicked(marker) {
+      this.center = marker.position;
     }
   }
 };

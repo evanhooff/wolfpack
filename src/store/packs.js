@@ -9,26 +9,21 @@ const state = {
 
 const getters = {
   allPacks: state => {
-    return state.allPacks;
-  },
-  selectedPack: state => {
-    let reversedWolves = state.selectedPack;
-    reversedWolves.wolves = reversedWolves.wolves.reverse();
-    return reversedWolves;
-  },
-  packLocations: state => {
     if (state.allPacks) {
       return state.allPacks.map(pack => {
         let position = {};
         position.lat = pack.lat;
         position.lng = pack.lng;
-        let location = {};
-        location.position = position;
-        location.packId = pack.id;
-        return location;
+        pack.position = position;
+        return pack;
       });
     }
     return [];
+  },
+  selectedPack: state => {
+    let reversedWolves = state.selectedPack;
+    reversedWolves.wolves = reversedWolves.wolves.reverse();
+    return reversedWolves;
   }
 }
 

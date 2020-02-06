@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1>Google Maps</h1>
-    <google-map :markers="packLocations"></google-map>
+    <google-map :markers="allPacks"></google-map>
+    <span v-if="allPacks">Showing {{allPacks.length}} packs</span>
+    <!-- link to map -->
+    <b-button :to="{ name: 'home' }" variant="primary">Back to wolves overview</b-button>
   </div>
 </template>
 
@@ -15,7 +18,7 @@ export default {
     GoogleMap
   },
   computed: {
-    ...mapGetters("packs", ["packLocations", "allPacks"])
+    ...mapGetters("packs", ["allPacks"])
   },
   methods: {
     ...mapActions("packs", ["getAllPacks"])

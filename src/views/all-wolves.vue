@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- link to map -->
+    <b-button :to="{ name: 'map' }" variant="primary">Show packs on map</b-button>
+
     <h1>All Wolves</h1>
     <create-wolf @created="getAllWolves"></create-wolf>
 
