@@ -1,11 +1,17 @@
 // todo: add map
 <template>
-  <div>Location: {{ selectedPack.lat }} / {{ selectedPack.lng }}</div>
+  <div>
+    <google-map :markers="[selectedPack]" :set-center="selectedPack.position"></google-map>
+  </div>
 </template>
 
 <script>
+import GoogleMap from "../components/googleMap";
 export default {
   name: "pack",
-  props: ["selectedPack"]
+  props: ["selectedPack"],
+  components: {
+    GoogleMap
+  }
 };
 </script>

@@ -7,10 +7,9 @@
         :position="m.position"
         @click="markerClicked(m)"
       >
-        <GmapInfoWindow :opened="m.id === markerOpened">
+        <GmapInfoWindow v-if="!setCenter" :opened="m.id === markerOpened">
           <h3>{{m.name}}</h3>
           <b-button :to="`/pack/${m.id}`">View pack</b-button>
-          {{m}}
         </GmapInfoWindow>
       </gmap-marker>
     </gmap-map>
@@ -24,11 +23,15 @@ export default {
     markers: {
       type: Array,
       required: true
+    },
+    setCenter: {
+      type: Object,
+      required: false
     }
   },
   data() {
     return {
-      center: { lat: 45.508, lng: -73.587 },
+      center: this.setCenter ? this.setCenter : { lat: 45.508, lng: -73.587 },
       markerOpened: false
     };
   },
@@ -39,12 +42,14 @@ export default {
 
   methods: {
     geolocate: function() {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-      });
+      if (!this.setCenter) {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+        });
+      }
     },
     markerClicked(marker) {
       this.center = marker.position;

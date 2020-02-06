@@ -1,5 +1,14 @@
 import rest from '../api/rest';
 
+function addPosition(pack) {
+  // add position for Google Maps
+  let position = {};
+  position.lat = pack.lat;
+  position.lng = pack.lng;
+  pack.position = position;
+  return pack;
+}
+
 const state = {
   packLoading: true,
   error: false,
@@ -11,17 +20,13 @@ const getters = {
   allPacks: state => {
     if (state.allPacks) {
       return state.allPacks.map(pack => {
-        let position = {};
-        position.lat = pack.lat;
-        position.lng = pack.lng;
-        pack.position = position;
-        return pack;
+        return addPosition(pack);
       });
     }
     return [];
   },
   selectedPack: state => {
-    let reversedWolves = state.selectedPack;
+    let reversedWolves = addPosition(state.selectedPack);
     reversedWolves.wolves = reversedWolves.wolves.reverse();
     return reversedWolves;
   }
