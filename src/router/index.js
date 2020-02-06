@@ -7,11 +7,12 @@ const AllWolves = () =>
   import( /* webpackChunkName: "AllWolves" */ "@/views/all-wolves.vue");
 
 const Pack = () =>
-  import( /* webpackChunkName: "Pack" */ "@/views/pack-overview.vue");
+  import( /* webpackChunkName: "Pack" */ "@/views/pack-detail.vue");
 
 let router = new VueRouter({
   routes: [{
       path: "/",
+      name: "home",
       component: AllWolves
     },
     {

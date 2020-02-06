@@ -1,28 +1,37 @@
-// single pack view
+// pack detail page
 <template>
   <div>
     <div v-if="!packLoading">
       <!-- pack information -->
       <h1>Pack {{ selectedPack.name }}</h1>
-      <delete-pack :packId="selectedPack.id" @deleted="showAlertMessage"></delete-pack>
-      <update-pack :pack="selectedPack" @updated="showAlertMessage"></update-pack>
+      <delete-pack :packId="selectedPack.id" @deleted="redirectView"></delete-pack>
+      <update-pack :pack="selectedPack" @updated="reloadView"></update-pack>
 
       <!-- pack details -->
       <pack :selectedPack="selectedPack"></pack>
 
       <!-- add wolf to pack -->
-      <add-wolf :pack="selectedPack" @added="showAlertMessage"></add-wolf>
+      <add-wolf :pack="selectedPack" @added="reloadView"></add-wolf>
 
-      <!-- alert message for when adding/deleting wolf -->
+      <!-- alert message for when adding/deleting wolf and updating pack -->
       <b-alert v-model="showAlert" dismissible>{{ alertMessage }}</b-alert>
 
       <!-- all wolves in a pack -->
       <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf">
-        <remove-wolf :wolfId="wolf.id" :packId="selectedPack.id" @removed="showAlertMessage"></remove-wolf>
-        <delete-wolf :wolfId="wolf.id" @deleted="showAlertMessage"></delete-wolf>
+        <remove-wolf :wolfId="wolf.id" :packId="selectedPack.id" @removed="reloadView"></remove-wolf>
+        <delete-wolf :wolfId="wolf.id" @deleted="reloadView"></delete-wolf>
       </wolf>
     </div>
-    <div v-if="packLoading">Loading...</div>
+    <div v-if="packLoading && !error">Loading...</div>
+
+    <div v-if="packNotFound">
+      <h1>Pack not found</h1>
+    </div>
+
+    <div v-if="error">
+      <span>Something went wrong, please return to the home page.</span>
+      <b-button :to="{ name: 'home' }">Take me home</b-button>
+    </div>
   </div>
 </template>
 
@@ -55,33 +64,32 @@ export default {
     };
   },
   computed: {
-    ...mapState("packs", ["packLoading"]),
-    ...mapGetters("packs", ["selectedPack"])
+    ...mapState("packs", ["packLoading", "error"]),
+    ...mapGetters("packs", ["selectedPack"]),
+    packNotFound() {
+      return this.error.status === 404;
+    }
   },
   methods: {
     ...mapActions("packs", ["getPack"]),
     showAlertMessage(message) {
       this.showAlert = true;
       this.alertMessage = message;
-      this.getPack(this.$route.params.id).catch(error => {
-        console.log(this.packNotFound(error));
-      });
     },
-    packNotFound(error) {
-      // pack not found, so redirect the user to the main view
-      console.log(error);
+    reloadView(alertMessage) {
+      this.showAlertMessage(alertMessage);
+      this.getPack(this.$route.params.id);
+    },
+    redirectView() {
+      this.$router.push({ name: "home" });
     }
   },
   mounted() {
-    this.getPack(this.$route.params.id).catch(error => {
-      console.log(this.packNotFound(error));
-    });
+    this.getPack(this.$route.params.id);
 
     // needed for route change
     this.$router.beforeEach((to, from, next) => {
-      this.getPack(to.params.id).catch(error => {
-        console.log(this.packNotFound(error));
-      });
+      this.getPack(to.params.id);
       next();
     });
   }

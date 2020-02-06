@@ -2,6 +2,7 @@ import rest from '../api/rest';
 
 const state = {
   packLoading: true,
+  error: false,
   allPacks: null,
   selectedPack: null
 }
@@ -32,7 +33,7 @@ const actions = {
       }).catch(error => {
         // set selected pack to undefined
         store.commit('setSelectedPack', undefined);
-        return Promise.reject(error);
+        store.commit('setErrorState', error);
       });
     } else {
       store.commit('setSelectedPack', undefined);
@@ -43,6 +44,9 @@ const actions = {
 const mutations = {
   setLoadingState(state, isLoading) {
     state.packLoading = isLoading;
+  },
+  setErrorState(state, error) {
+    state.error = error;
   },
   setAllPacks(state, packs) {
     state.allPacks = packs;
