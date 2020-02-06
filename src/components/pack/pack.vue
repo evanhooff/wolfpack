@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import GoogleMap from "../components/googleMap";
+import GoogleMap from "../../components/googleMap";
 export default {
   name: "pack",
   props: ["selectedPack"],

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import rest from "../api/rest";
+import rest from "../../api/rest";
 import moment from "moment";
 
 export default {

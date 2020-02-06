@@ -23,7 +23,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-import createPack from "./createPack";
+import createPack from "./pack/createPack";
 
 export default {
   name: "packSelector",

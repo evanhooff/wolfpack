@@ -32,13 +32,13 @@
 </template>
 
 <script>
-import Pack from "../components/pack";
-import Wolf from "../components/wolf";
-import deleteWolf from "../components/deleteWolf";
-import removeWolf from "../components/removeWolf";
-import addWolf from "../components/addWolf";
-import deletePack from "../components/deletePack";
-import updatePack from "../components/updatePack";
+import Pack from "../components/pack/pack";
+import Wolf from "../components/wolf/wolf";
+import deleteWolf from "../components/wolf/deleteWolf";
+import removeWolf from "../components/wolf/removeWolf";
+import addWolf from "../components/wolf/addWolf";
+import deletePack from "../components/pack/deletePack";
+import updatePack from "../components/pack/updatePack";
 import restError from "../components/restError";
 import { mapState, mapActions, mapGetters } from "vuex";
 

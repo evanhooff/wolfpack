@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import Wolf from "../components/wolf";
-import createWolf from "../components/createWolf";
-import deleteWolf from "../components/deleteWolf";
-import updateWolf from "../components/updateWolf";
+import Wolf from "../components/wolf/wolf";
+import createWolf from "../components/wolf/createWolf";
+import deleteWolf from "../components/wolf/deleteWolf";
+import updateWolf from "../components/wolf/updateWolf";
 import restError from "../components/restError";
 import { mapState, mapActions, mapGetters } from "vuex";
 

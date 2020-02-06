@@ -1,20 +1,21 @@
 <template>
   <div>
     <!-- button to delete the wolf entirely -->
-    <button class="btn btn-primary" @click="deletePack">delete</button>
+    <b-button variant="primary" @click="deleteWolf">delete</b-button>
 
-    <!-- error message on deleting or removing a pack -->
+    <!-- error message on deleting or removing a wolf -->
     <b-alert :show="showError" dismissible>{{ errorMessage }}</b-alert>
   </div>
 </template>
 
 <script>
-import rest from "../api/rest";
+import rest from "../../api/rest";
+import moment from "moment";
 
 export default {
   name: "wolf",
   props: {
-    packId: {
+    wolfId: {
       type: Number,
       required: true
     }
@@ -25,15 +26,22 @@ export default {
       errorMessage: undefined
     };
   },
+  filters: {
+    // format for the birthdate
+    dateFormat: function(date) {
+      if (!date) return "";
+      const formattedDate = moment(date).format("DD/MM/YYYY");
+      return formattedDate;
+    }
+  },
   methods: {
     // function to delete the wolf entirely
-    deletePack() {
+    deleteWolf() {
       rest
-        .deletePack({ id: this.packId })
-        .then(response => {
+        .deleteWolf({ id: this.wolfId })
+        .then(() => {
           // emit to parent to reload the view
-          // parse response data to display the deleted wolf
-          this.$emit("deleted", response.data);
+          this.$emit("deleted", `Wolf was deleted.`);
         })
         .catch(error => {
           // display error

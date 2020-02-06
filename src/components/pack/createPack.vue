@@ -1,57 +1,55 @@
 <template>
   <div>
-    <b-button v-b-modal.create-wolf>Create Wolf</b-button>
+    <b-button v-b-modal.create-pack>Create pack</b-button>
 
-    <b-alert
-      v-if="wolf"
-      :show="showCreatedMessage"
-      dismissible
-    >{{ wolf.name }} is created as a wolf!</b-alert>
+    <b-alert v-if="pack" :show="showCreatedMessage" dismissible>{{ pack.name }} is created!</b-alert>
 
-    <b-modal id="create-wolf" title="Create a new wolf" :hide-footer="true">
-      <wolf-form @submit="createWolf">
+    <b-modal id="create-pack" title="Create a pack" :hide-footer="true">
+      <pack-form @submit="createPack">
         <b-alert v-if="error" :show="showErrorMessage" dismissible>
           {{ error.message }}
           <p v-for="(field, index) in error.errors" :key="index">{{ field[0] }}</p>
         </b-alert>
-      </wolf-form>
+      </pack-form>
     </b-modal>
   </div>
 </template>
 
 <script>
-import rest from "../api/rest";
-import wolfForm from "../components/wolfForm";
+import rest from "../../api/rest";
+import packForm from "./packForm";
 
 export default {
-  name: "createWolf",
+  name: "createPack",
   components: {
-    wolfForm
+    packForm
   },
   data() {
     return {
-      showModal: true,
       showCreatedMessage: false,
-      wolf: undefined, // used to display success creating wolf message,
-      showErrorMessage: false, // used to display error creating wolf message
+      pack: undefined, // used to display success creating wolf message,
+      showModal: true,
+      showErrorMessage: false, // used to display error adding wolf message
       error: undefined // used to display error message
     };
   },
   methods: {
-    createWolf(formData) {
+    createPack(formData) {
       this.showCreatedMessage = false;
       this.error = undefined;
       this.showErrorMessage = false;
-
       rest
-        .createWolf(formData)
+        .createPack(formData)
         .then(response => {
           // on success: hide modal
-          this.$bvModal.hide("create-wolf");
+          this.$bvModal.hide("create-pack");
           // display data of created wolf
           this.showCreatedMessage = true;
-          this.wolf = response.data;
-          // reset the view
+          this.pack = response.data;
+          // go to pack
+          this.$router.push({ name: "pack", params: { id: response.data.id } });
+
+          // update the pack selector
           this.$emit("created");
         })
         .catch(error => {

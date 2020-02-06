@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import rest from "../api/rest";
+import rest from "../../api/rest";
 import { mapState, mapActions } from "vuex";
 
 export default {

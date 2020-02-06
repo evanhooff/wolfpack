@@ -1,29 +1,34 @@
 <template>
   <div>
-    <b-button v-b-modal.update-pack>Change pack</b-button>
+    <b-button @click="showModal = !showModal">Change</b-button>
 
-    <b-modal id="update-pack" :title="`Change ${pack.name}`" :hide-footer="true">
-      <pack-form @submit="updatePack" :pack="pack">
+    <b-modal
+      v-model="showModal"
+      :id="`update-wolf-${wolf.id}`"
+      :title="`Change ${wolf.name}`"
+      :hide-footer="true"
+    >
+      <wolf-form @submit="updateWolf" :wolf="wolf">
         <b-alert v-if="error" :show="showErrorMessage" dismissible>
           {{ error.message }}
           <p v-for="(field, index) in error.errors" :key="index">{{ field[0] }}</p>
         </b-alert>
-      </pack-form>
+      </wolf-form>
     </b-modal>
   </div>
 </template>
 
 <script>
-import rest from "../api/rest";
-import packForm from "./packForm";
+import rest from "../../api/rest";
+import wolfForm from "./wolfForm";
 
 export default {
-  name: "updatePack",
+  name: "createWolf",
   components: {
-    packForm
+    wolfForm
   },
   props: {
-    pack: {
+    wolf: {
       type: Object,
       required: true
     }
@@ -36,16 +41,16 @@ export default {
     };
   },
   methods: {
-    updatePack(formData) {
+    updateWolf(formData) {
       this.error = undefined;
       this.showErrorMessage = false;
       rest
-        .updatePack(formData)
+        .updateWolf(formData)
         .then(() => {
           // on success: hide modal
-          this.$bvModal.hide("update-pack");
+          this.$bvModal.hide(`update-wolf-${this.wolf.id}`);
           // reset the view
-          this.$emit("updated", "Pack details were updated.");
+          this.$emit("updated", "Wolf details were updated.");
         })
         .catch(error => {
           // on error: display server error response
