@@ -27,15 +27,7 @@
     </div>
     <div v-if="packLoading && !error">Loading...</div>
 
-    <!-- todo: generic 404 -->
-    <div v-if="packNotFound">
-      <h1>Pack not found</h1>
-    </div>
-
-    <div v-if="error">
-      <span>Something went wrong, please return to the home page.</span>
-      <b-button :to="{ name: 'home' }">Take me home</b-button>
-    </div>
+    <rest-error v-if="error" :error404="this.error.status === 404"></rest-error>
   </div>
 </template>
 
@@ -47,6 +39,7 @@ import removeWolf from "../components/removeWolf";
 import addWolf from "../components/addWolf";
 import deletePack from "../components/deletePack";
 import updatePack from "../components/updatePack";
+import restError from "../components/restError";
 import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
@@ -58,7 +51,8 @@ export default {
     removeWolf,
     addWolf,
     deletePack,
-    updatePack
+    updatePack,
+    restError
   },
   data() {
     return {
@@ -69,10 +63,7 @@ export default {
   },
   computed: {
     ...mapState("packs", ["packLoading", "error"]),
-    ...mapGetters("packs", ["selectedPack"]),
-    packNotFound() {
-      return this.error.status === 404;
-    }
+    ...mapGetters("packs", ["selectedPack"])
   },
   methods: {
     ...mapActions("packs", ["getPack"]),
@@ -99,6 +90,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

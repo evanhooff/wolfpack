@@ -36,6 +36,8 @@ const actions = {
   getAllPacks: store => {
     rest.getPacks().then(packs => {
       store.commit('setAllPacks', packs);
+    }).catch(error => {
+      store.commit('setErrorState', error);
     });
   },
   getPack: (store, id) => {

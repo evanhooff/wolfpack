@@ -15,7 +15,9 @@
         <update-wolf :wolf="wolf" @updated="showAlertMessage"></update-wolf>
       </wolf>
     </div>
-    <div v-if="isLoading">Loading...</div>
+    <div v-if="isLoading && !error">Loading...</div>
+
+    <rest-error v-if="error" :error404="this.error.status === 404"></rest-error>
   </div>
 </template>
 
@@ -24,6 +26,7 @@ import Wolf from "../components/wolf";
 import createWolf from "../components/createWolf";
 import deleteWolf from "../components/deleteWolf";
 import updateWolf from "../components/updateWolf";
+import restError from "../components/restError";
 import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
@@ -32,7 +35,8 @@ export default {
     Wolf,
     createWolf,
     deleteWolf,
-    updateWolf
+    updateWolf,
+    restError
   },
   data() {
     return {
@@ -43,7 +47,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("wolves", ["isLoading"]),
+    ...mapState("wolves", ["isLoading", "error"]),
     ...mapGetters("wolves", ["allWolves"])
   },
   mounted() {

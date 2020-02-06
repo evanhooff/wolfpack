@@ -2,13 +2,18 @@ import rest from '../api/rest';
 
 const state = {
   isLoading: true,
-  allWolves: null
+  error: false,
+  allWolves: []
 }
 
 const getters = {
   allWolves: state => {
     let reversedWolves = state.allWolves.reverse();
-    return reversedWolves;
+    return reversedWolves.map((wolf) => {
+      wolf.value = wolf.id;
+      wolf.text = wolf.name;
+      return wolf;
+    });
   }
 }
 
@@ -18,6 +23,10 @@ const actions = {
     rest.getWolves().then(wolves => {
       store.commit('setAllWolves', wolves);
       store.commit('setLoadingState', false);
+    }).catch(error => {
+      // set selected pack to undefined
+      store.commit('setAllWolves', undefined);
+      store.commit('setErrorState', error);
     });
   }
 }
@@ -26,12 +35,11 @@ const mutations = {
   setLoadingState(state, isLoading) {
     state.isLoading = isLoading;
   },
+  setErrorState(state, error) {
+    state.error = error;
+  },
   setAllWolves(state, wolves) {
-    state.allWolves = wolves.map((wolf) => {
-      wolf.value = wolf.id;
-      wolf.text = wolf.name;
-      return wolf;
-    });
+    if (wolves) state.allWolves = wolves;
   }
 }
 
