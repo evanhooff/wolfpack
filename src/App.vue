@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-container fluid>
     <header class="header">
       <div class="logo">
         <h1>
@@ -11,7 +11,7 @@
     <main class="main">
       <router-view></router-view>
     </main>
-  </div>
+  </b-container>
 </template>
 
 <script>

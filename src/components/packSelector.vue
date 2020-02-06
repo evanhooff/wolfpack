@@ -1,7 +1,7 @@
 // pack menu
 <template>
-  <div>
-    <span>Select Pack:</span>
+  <div class="menu">
+    <label for="pack-selector-menu">Select Pack:</label>
 
     <b-dropdown
       id="pack-selector-menu"
