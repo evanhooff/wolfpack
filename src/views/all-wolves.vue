@@ -3,16 +3,13 @@
     <h1>All Wolves</h1>
     <create-wolf @created="getAllWolves"></create-wolf>
 
-    <!-- success message on deleting a wolf -->
-    <b-alert v-model="showDeletedMessage" dismissible>Wolf was deleted.</b-alert>
-
     <!-- success message on updating a wolf -->
-    <b-alert v-model="showUpdatedMessage" dismissible>Wolf was updated.</b-alert>
+    <b-alert v-model="showAlert" dismissible>{{ alertMessage }}</b-alert>
 
     <div v-if="!isLoading">
       <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf">
-        <delete-wolf :wolfId="wolf.id" @deleted="wolfDeleted"></delete-wolf>
-        <update-wolf :wolf="wolf" @updated="wolfUpdated"></update-wolf>
+        <delete-wolf :wolfId="wolf.id" @deleted="showAlertMessage"></delete-wolf>
+        <update-wolf :wolf="wolf" @updated="showAlertMessage"></update-wolf>
       </wolf>
     </div>
     <div v-if="isLoading">Loading...</div>
@@ -36,6 +33,8 @@ export default {
   },
   data() {
     return {
+      showAlert: false,
+      alertMessage: "",
       showDeletedMessage: false,
       showUpdatedMessage: false
     };
@@ -49,12 +48,9 @@ export default {
   },
   methods: {
     ...mapActions("wolves", ["getAllWolves"]),
-    wolfDeleted() {
-      this.showDeletedMessage = true;
-      this.getAllWolves();
-    },
-    wolfUpdated() {
-      this.showUpdatedMessage = true;
+    showAlertMessage(message) {
+      this.showAlert = true;
+      this.alertMessage = message;
       this.getAllWolves();
     }
   }

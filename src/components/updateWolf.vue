@@ -50,7 +50,7 @@ export default {
           // on success: hide modal
           this.$bvModal.hide(`update-wolf-${this.wolf.id}`);
           // reset the view
-          this.$emit("updated");
+          this.$emit("updated", "Wolf details were updated.");
         })
         .catch(error => {
           // on error: display server error response

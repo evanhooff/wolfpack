@@ -62,7 +62,7 @@ export default {
           // on success: hide modal
           this.$bvModal.hide("add-wolf");
           // display data of added wolf and reset the view
-          this.$emit("added", this.selectedWolf);
+          this.$emit("added", "Wolf was added to the pack");
           // reset the form
           this.resetForm();
         })

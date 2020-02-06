@@ -46,10 +46,9 @@ export default {
           wolfId: this.wolfId,
           packId: this.packId
         })
-        .then(response => {
+        .then(() => {
           // emit to parent to reload the view
-          // parse response data to display the deleted wolf
-          this.$emit("removed", response.data);
+          this.$emit("removed", "Wolf was removed from pack.");
         })
         .catch(error => {
           this.showError = true;
