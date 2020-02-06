@@ -5,6 +5,7 @@
       <!-- pack information -->
       <h1>Pack {{ selectedPack.name }}</h1>
       <delete-pack :packId="selectedPack.id" @deleted="showAlertMessage"></delete-pack>
+      <update-pack :pack="selectedPack" @updated="showAlertMessage"></update-pack>
 
       <!-- pack details -->
       <pack :selectedPack="selectedPack"></pack>
@@ -32,6 +33,7 @@ import deleteWolf from "../components/deleteWolf";
 import removeWolf from "../components/removeWolf";
 import addWolf from "../components/addWolf";
 import deletePack from "../components/deletePack";
+import updatePack from "../components/updatePack";
 import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
@@ -42,7 +44,8 @@ export default {
     deleteWolf,
     removeWolf,
     addWolf,
-    deletePack
+    deletePack,
+    updatePack
   },
   data() {
     return {
