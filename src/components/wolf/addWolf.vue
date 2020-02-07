@@ -1,6 +1,11 @@
 <template>
   <div>
-    <b-button v-b-modal.add-wolf>Add Wolf to this Pack</b-button>
+    <b-card
+      v-b-modal.add-wolf
+      class="add-button"
+      border-variant="primary"
+      align="center"
+    >Add Wolf to this Pack</b-card>
 
     <b-modal id="add-wolf" :title="`Add a wolf to ${pack.name}`" :hide-footer="true">
       <b-form @submit="submitWolf" @reset="onReset" v-if="showModal">

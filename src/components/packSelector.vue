@@ -5,10 +5,9 @@
 
     <b-dropdown
       id="pack-selector-menu"
-      :text="(selectedPack) ? selectedPack.name : 'All wolves'"
+      :text="(selectedPack) ? selectedPack.name : 'Packname'"
       class="m-md-2"
     >
-      <b-dropdown-item :to="'/'">all wolves</b-dropdown-item>
       <b-dropdown-item
         v-for="pack in allPacks"
         :key="pack.id"

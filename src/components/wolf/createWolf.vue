@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button v-b-modal.create-wolf>Create Wolf</b-button>
+    <b-card v-b-modal.create-wolf class="add-button" border-variant="primary">Create Wolf</b-card>
 
     <b-alert
       v-if="wolf"
@@ -30,6 +30,13 @@ export default {
   },
   data() {
     return {
+      iconProps: {
+        blank: true,
+        blankColor: "#777",
+        width: 75,
+        height: 75,
+        class: "m1"
+      },
       showModal: true,
       showCreatedMessage: false,
       wolf: undefined, // used to display success creating wolf message,

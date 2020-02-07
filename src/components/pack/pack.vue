@@ -1,6 +1,6 @@
 // todo: add map
 <template>
-  <div>
+  <div class="my-4">
     <google-map :markers="[selectedPack]" :set-center="selectedPack.position"></google-map>
   </div>
 </template>

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- link to home -->
+    <b-button :to="{ name: 'home' }">Show all wolves</b-button>
+
     <h1>Google Maps</h1>
     <google-map :markers="allPacks"></google-map>
     <span v-if="allPacks">Showing {{allPacks.length}} packs</span>

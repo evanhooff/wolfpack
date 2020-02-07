@@ -1,29 +1,37 @@
 // pack detail page
 <template>
   <div>
+    <!-- link to home -->
+    <b-button :to="{ name: 'home' }">Show all wolves</b-button>
     <!-- link to map -->
-    <b-button :to="{ name: 'map' }" variant="primary">Show packs on map</b-button>
+    <b-button :to="{ name: 'map' }" variant="primary" class="mx-2">Show packs on map</b-button>
 
     <div v-if="!packLoading">
-      <!-- pack information -->
-      <h1>Pack {{ selectedPack.name }}</h1>
-      <delete-pack :packId="selectedPack.id" @deleted="redirectView"></delete-pack>
-      <update-pack :pack="selectedPack" @updated="reloadView"></update-pack>
+      <div class="pack-detail">
+        <h1>Pack {{ selectedPack.name }}</h1>
+        <delete-pack :packId="selectedPack.id" @deleted="redirectView"></delete-pack>
+        <update-pack :pack="selectedPack" @updated="reloadView"></update-pack>
+      </div>
 
-      <!-- pack details -->
+      <!-- pack details with Google Maps-->
       <pack :selectedPack="selectedPack"></pack>
-
-      <!-- add wolf to pack -->
-      <add-wolf :pack="selectedPack" @added="reloadView"></add-wolf>
 
       <!-- alert message for when adding/deleting wolf and updating pack -->
       <b-alert v-model="showAlert" dismissible>{{ alertMessage }}</b-alert>
 
+      <h2 class="custom-font">{{ selectedPack.wolves.length }} Wolves in this pack</h2>
       <!-- all wolves in a pack -->
-      <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf">
-        <remove-wolf :wolfId="wolf.id" :packId="selectedPack.id" @removed="reloadView"></remove-wolf>
-        <delete-wolf :wolfId="wolf.id" @deleted="reloadView"></delete-wolf>
-      </wolf>
+      <b-card-group columns>
+        <wolf v-for="wolf in selectedPack.wolves" :key="wolf.id" :wolf="wolf">
+          <div class="button-bar">
+            <remove-wolf :wolfId="wolf.id" :packId="selectedPack.id" @removed="reloadView"></remove-wolf>
+            <delete-wolf :wolfId="wolf.id" @deleted="reloadView"></delete-wolf>
+          </div>
+        </wolf>
+      </b-card-group>
+
+      <!-- add wolf to pack -->
+      <add-wolf :pack="selectedPack" @added="reloadView"></add-wolf>
     </div>
     <div v-if="packLoading && !error">Loading...</div>
 

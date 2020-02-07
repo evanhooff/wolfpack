@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- button to delete the wolf entirely -->
-    <button class="btn btn-primary" @click="deletePack">delete</button>
+    <button class="btn btn-primary mx-2" @click="deletePack">delete</button>
 
     <!-- error message on deleting or removing a pack -->
     <b-alert :show="showError" dismissible>{{ errorMessage }}</b-alert>

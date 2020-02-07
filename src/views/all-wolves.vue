@@ -4,17 +4,20 @@
     <b-button :to="{ name: 'map' }" variant="primary">Show packs on map</b-button>
 
     <h1>All Wolves</h1>
-    <create-wolf @created="getAllWolves"></create-wolf>
 
     <!-- success message on updating a wolf -->
     <b-alert v-model="showAlert" dismissible>{{ alertMessage }}</b-alert>
 
-    <div v-if="!isLoading">
+    <b-card-group columns v-if="!isLoading">
+      <create-wolf @created="getAllWolves"></create-wolf>
+
       <wolf v-for="wolf in allWolves" :key="wolf.id" :wolf="wolf">
-        <delete-wolf :wolfId="wolf.id" @deleted="showAlertMessage"></delete-wolf>
-        <update-wolf :wolf="wolf" @updated="showAlertMessage"></update-wolf>
+        <div class="button-bar">
+          <delete-wolf :wolfId="wolf.id" @deleted="showAlertMessage"></delete-wolf>
+          <update-wolf :wolf="wolf" @updated="showAlertMessage"></update-wolf>
+        </div>
       </wolf>
-    </div>
+    </b-card-group>
     <div v-if="isLoading && !error">Loading...</div>
 
     <rest-error v-if="error" :error404="this.error.status === 404"></rest-error>

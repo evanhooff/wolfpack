@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button @click="showModal = !showModal">Change</b-button>
+    <b-button @click="showModal = !showModal">change</b-button>
 
     <b-modal
       v-model="showModal"

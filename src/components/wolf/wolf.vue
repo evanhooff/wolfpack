@@ -1,10 +1,9 @@
 <template>
-  <div class="wolf">
-    {{wolf.name}}
-    {{wolf.gender}}
-    {{wolf.birthday | dateFormat}}
+  <b-card class="wolf" :title="wolf.name">
+    <p>Gender: {{wolf.gender}}</p>
+    <p>Birthday: {{wolf.birthday | dateFormat}}</p>
     <slot></slot>
-  </div>
+  </b-card>
 </template>
 
 <script>
