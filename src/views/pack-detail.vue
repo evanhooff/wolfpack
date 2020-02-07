@@ -1,11 +1,10 @@
 // pack detail page
 <template>
   <div>
-    <!-- link to home -->
     <b-button :to="{ name: 'home' }">Show all wolves</b-button>
-    <!-- link to map -->
     <b-button :to="{ name: 'map' }" variant="primary" class="mx-2">Show packs on map</b-button>
 
+    <!-- check if pack is loaded -->
     <div v-if="!packLoading">
       <div class="pack-detail">
         <h1>Pack {{ selectedPack.name }}</h1>
@@ -33,8 +32,8 @@
       <!-- add wolf to pack -->
       <add-wolf :pack="selectedPack" @added="reloadView"></add-wolf>
     </div>
-    <div v-if="packLoading && !error">Loading...</div>
 
+    <div v-if="packLoading && !error">Loading...</div>
     <rest-error v-if="error" :error404="this.error.status === 404"></rest-error>
   </div>
 </template>

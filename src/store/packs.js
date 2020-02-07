@@ -1,11 +1,13 @@
 import rest from '../api/rest';
 
 function addPosition(pack) {
-  // add position for Google Maps
-  let position = {};
-  position.lat = pack.lat;
-  position.lng = pack.lng;
-  pack.position = position;
+  if (pack) {
+    // add position for Google Maps
+    let position = {};
+    position.lat = pack.lat;
+    position.lng = pack.lng;
+    pack.position = position;
+  }
   return pack;
 }
 
