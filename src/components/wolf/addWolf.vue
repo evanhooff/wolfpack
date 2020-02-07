@@ -48,9 +48,9 @@ export default {
   computed: {
     ...mapState("wolves", ["allWolves"])
   },
-  beforeMount() {
+  mounted() {
     // populate the select box
-    if (!this.allWolves) this.getAllWolves();
+    if (this.allWolves.length === 0) this.getAllWolves();
   },
   methods: {
     ...mapActions("wolves", ["getAllWolves"]),
